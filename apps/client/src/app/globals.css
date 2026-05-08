@@ -8,7 +8,9 @@ body {
   margin: 0;
   background: #020617;
   color: white;
-  font-family: Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 * {
@@ -17,4 +19,159 @@ body {
 
 input {
   color: white;
+}
+
+/* GLASSMORPHISM COMPONENTS */
+
+/* Glass Card - Premium backdrop blur container */
+.glass-card {
+  @apply relative rounded-2xl sm:rounded-3xl overflow-hidden;
+  background: rgba(15, 23, 41, 0.5) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  box-shadow: 
+    inset 0 1px 1px rgba(255, 255, 255, 0.08),
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    0 1px 0 rgba(0, 132, 255, 0.1) inset;
+  border-radius: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .glass-card {
+    border-radius: 1.875rem;
+  }
+}
+
+/* Glass Input - Elegant form inputs */
+.glass-input {
+  @apply w-full px-4 sm:px-5 py-3 sm:py-3.5 rounded-xl sm:rounded-2xl 
+         bg-white/[0.03] border border-white/15 
+         text-white text-base
+         placeholder:text-white/40
+         transition-all duration-200
+         focus:outline-none focus:border-primary/50 focus:bg-white/[0.05] focus:ring-2 focus:ring-primary/30
+         disabled:opacity-60 disabled:cursor-not-allowed
+         hover:border-white/25;
+  font-size: 16px;
+}
+
+/* Glass Input Focused State */
+.glass-input:focus {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  border-color: rgba(10, 132, 255, 0.5) !important;
+  box-shadow: 
+    inset 0 0 0 1px rgba(10, 132, 255, 0.3),
+    0 0 20px rgba(10, 132, 255, 0.15) !important;
+}
+
+/* Glass Button Primary - Main CTA */
+.glass-button-primary {
+  @apply relative rounded-xl sm:rounded-2xl px-4 sm:px-6 py-3 sm:py-4
+         bg-gradient-to-r from-primary via-secondary to-accent
+         text-white font-semibold text-base
+         transition-all duration-300
+         disabled:opacity-50 disabled:cursor-not-allowed
+         hover:shadow-[0_0_30px_rgba(10,132,255,0.4)]
+         active:scale-95;
+  background-size: 200% 100%;
+  box-shadow: 0 4px 15px rgba(10, 132, 255, 0.3);
+}
+
+.glass-button-primary:hover:not(:disabled) {
+  background-position: right center !important;
+  box-shadow: 0 8px 30px rgba(10, 132, 255, 0.5);
+  transform: translateY(-2px);
+}
+
+.glass-button-primary:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 4px 15px rgba(10, 132, 255, 0.3);
+}
+
+/* Form Divider */
+.form-divider {
+  @apply relative my-6 sm:my-8;
+}
+
+.form-divider::before {
+  content: '';
+  @apply absolute w-full h-px bg-gradient-to-r from-transparent via-white/20 to-transparent;
+}
+
+/* Input Label */
+.input-label {
+  @apply block text-sm font-semibold text-white/90 mb-2 sm:mb-2.5
+         tracking-wide;
+}
+
+/* Space Section - Spacing utilities */
+.space-section {
+  @apply space-y-4 sm:space-y-5;
+}
+
+/* Error Animation */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+.error-shake {
+  animation: shake 0.3s ease-in-out;
+}
+
+/* Success Animation */
+@keyframes pulse-glow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
+}
+
+.pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Gradient Text */
+.gradient-text {
+  @apply bg-gradient-to-r from-primary via-secondary to-accent 
+         bg-clip-text text-transparent;
+}
+
+/* Premium borders */
+.gradient-border {
+  @apply relative rounded-2xl;
+  background: linear-gradient(135deg, #0A84FF, #1E88FF, #00D9FF);
+  padding: 1px;
+  border-radius: 1.5rem;
+}
+
+/* Icon Badge */
+.icon-badge {
+  @apply inline-flex items-center justify-center w-12 h-12 rounded-2xl 
+         bg-gradient-to-br from-primary/20 to-secondary/20
+         border border-primary/30
+         shadow-[0_0_20px_rgba(10,132,255,0.2)];
+}
+
+/* Focus visible state */
+.glass-input:focus-visible {
+  outline: none;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(10, 132, 255, 0.3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(10, 132, 255, 0.5);
 }
