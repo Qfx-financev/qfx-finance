@@ -1,0 +1,3 @@
+DATABASE_URL=postgresql://qfx:qfxpass@localhost:5432/qfxfinance
+JWT_SECRET=SUPER_SECRET_QFX_KEY
+REDIS_URL=redis://localhost:6379

@@ -1,0 +1,44 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id              String   @id @default(uuid())
+  fullName        String
+  email           String   @unique
+  password        String
+  accountNumber   String   @unique
+  checkingBalance Float    @default(0)
+  cryptoBalance   Float    @default(0)
+  investmentTotal Float    @default(0)
+  createdAt       DateTime @default(now())
+}
+
+model Admin {
+  id       String @id @default(uuid())
+  email    String @unique
+  password String
+  role     String
+}
+
+model Transaction {
+  id        String   @id @default(uuid())
+  userId    String
+  type      String
+  amount    Float
+  status    String   @default("pending")
+  reference String
+  createdAt DateTime @default(now())
+}
+
+model DepositAddress {
+  id      String @id @default(uuid())
+  asset   String
+  network String
+  address String
+}

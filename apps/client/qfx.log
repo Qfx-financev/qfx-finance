@@ -1,0 +1,14 @@
+nohup: ignoring input
+
+> qfx-client@1.0.0 dev
+> next dev -p 3000 -p 3001
+
+  ▲ Next.js 15.0.0
+  - Local:        http://localhost:3001
+
+ ✓ Starting...
+ ✓ Ready in 5.4s
+ ○ Compiling /register ...
+ ✓ Compiled /register in 10.5s (580 modules)
+ GET /register 200 in 11329ms
+ GET /register 200 in 179ms
