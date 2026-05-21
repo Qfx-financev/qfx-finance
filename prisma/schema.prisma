@@ -1,0 +1,145 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  SUPER_ADMIN
+  ADMIN
+  COMPLIANCE_OFFICER
+  KYC_OFFICER
+  SUPPORT_AGENT
+  TRADER
+  INVESTOR
+  USER
+}
+
+enum KycStatus {
+  PENDING
+  UNDER_REVIEW
+  APPROVED
+  REJECTED
+}
+
+enum TransactionType {
+  DEPOSIT
+  WITHDRAWAL
+  TRANSFER
+  INVESTMENT
+  PROFIT_DISTRIBUTION
+  FEE
+}
+
+enum TransactionStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
+  CANCELLED
+}
+
+enum InvestmentPlan {
+  BRONZE
+  SILVER
+  GOLD
+  VIP
+}
+
+model User {
+  id               String        @id @default(cuid())
+  email            String        @unique
+  passwordHash     String
+  firstName        String?
+  lastName         String?
+  phone            String?
+  role             Role          @default(USER)
+  twoFactorEnabled Boolean       @default(false)
+  twoFactorSecret  String?
+  kycStatus        KycStatus     @default(PENDING)
+  kycDocuments     KycDocument[]
+  wallets          Wallet[]
+  transactions     Transaction[]
+  investments      Investment[]
+  balance          Decimal       @default(0) @db.Decimal(18, 8)
+  stripeCustomerId String?
+  isActive         Boolean       @default(true)
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+}
+
+model KycDocument {
+  id         String    @id @default(cuid())
+  userId     String
+  user       User      @relation(fields: [userId], references: [id])
+  type       String
+  fileUrl    String
+  status     KycStatus @default(PENDING)
+  reviewNote String?
+  reviewedBy String?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+}
+
+model Wallet {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  address   String   @unique
+  chain     String
+  label     String?
+  isPrimary Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model Transaction {
+  id          String            @id @default(cuid())
+  userId      String
+  user        User              @relation(fields: [userId], references: [id])
+  type        TransactionType
+  status      TransactionStatus @default(PENDING)
+  amount      Decimal           @db.Decimal(18, 8)
+  currency    String            @default("USD")
+  description String?
+  metadata    Json?
+  approvedBy  String?
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+}
+
+model Investment {
+  id          String         @id @default(cuid())
+  userId      String
+  user        User           @relation(fields: [userId], references: [id])
+  plan        InvestmentPlan
+  amount      Decimal        @db.Decimal(18, 8)
+  dailyReturn Decimal        @db.Decimal(5, 4)
+  isActive    Boolean        @default(true)
+  startDate   DateTime       @default(now())
+  endDate     DateTime?
+  totalEarned Decimal        @default(0) @db.Decimal(18, 8)
+  createdAt   DateTime       @default(now())
+}
+
+model PlatformWallet {
+  id        String   @id @default(cuid())
+  address   String   @unique
+  chain     String
+  label     String
+  balance   Decimal  @default(0) @db.Decimal(18, 8)
+  createdAt DateTime @default(now())
+}
+
+model InvestmentPlanConfig {
+  id          String         @id @default(cuid())
+  plan        InvestmentPlan @unique
+  dailyReturn Decimal        @db.Decimal(5, 4)
+  minAmount   Decimal        @db.Decimal(18, 8)
+  maxAmount   Decimal?       @db.Decimal(18, 8)
+  durationDays Int
+  isActive    Boolean        @default(true)
+  createdAt   DateTime       @default(now())
+}

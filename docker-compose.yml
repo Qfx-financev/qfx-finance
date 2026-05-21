@@ -1,0 +1,106 @@
+version: '3.9'
+
+services:
+  # ─── Database ────────────────────────────────────────────
+  postgres:
+    image: postgres:16-alpine
+    container_name: qfx_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: qfx_db
+      POSTGRES_USER: qfx_user
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - qfx_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U qfx_user -d qfx_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ─── Redis ───────────────────────────────────────────────
+  redis:
+    image: redis:7-alpine
+    container_name: qfx_redis
+    restart: unless-stopped
+    command: redis-server --appendonly yes --maxmemory 256mb --maxmemory-policy allkeys-lru
+    volumes:
+      - redis_data:/data
+    networks:
+      - qfx_network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  # ─── NestJS API ──────────────────────────────────────────
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    container_name: qfx_api
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: postgresql://qfx_user:${DB_PASSWORD}@postgres:5432/qfx_db
+      REDIS_URL: redis://redis:6379
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - qfx_network
+    volumes:
+      - uploads:/app/uploads
+    expose:
+      - "3001"
+
+  # ─── Next.js Client ──────────────────────────────────────
+  client:
+    build:
+      context: .
+      dockerfile: apps/client/Dockerfile
+    container_name: qfx_client
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      NODE_ENV: production
+      NEXT_PUBLIC_API_URL: https://api.qfx-finance.com
+    depends_on:
+      - api
+    networks:
+      - qfx_network
+    expose:
+      - "3000"
+
+  # ─── Next.js Admin ───────────────────────────────────────
+  admin:
+    build:
+      context: .
+      dockerfile: apps/admin/Dockerfile
+    container_name: qfx_admin
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      NODE_ENV: production
+      NEXT_PUBLIC_API_URL: https://api.qfx-finance.com
+    depends_on:
+      - api
+    networks:
+      - qfx_network
+    expose:
+      - "3002"
+
+networks:
+  qfx_network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  redis_data:
+  uploads:
