@@ -47,7 +47,15 @@ Copy each example env file and fill in values:
 - `apps/admin/apps_admin_env.example`
 - `apps/client/apps_client_env.example`
 
-### 3) Run apps in development
+### 3) Validate workspace manifests
+
+Run a quick JSON validation check before local development or CI builds:
+
+```bash
+npm run check:manifests
+```
+
+### 4) Run apps in development
 
 ```bash
 npm run dev:api
@@ -57,8 +65,20 @@ npm run dev:client
 
 ## Build
 
+Root build now validates workspace manifests first, then builds all workspaces:
+
 ```bash
 npm run build
+```
+
+
+## Continuous Integration
+
+A GitHub Actions workflow is included at `.github/workflows/ci.yml` and runs on pushes and pull requests to validate workspace manifests:
+
+```bash
+npm install
+npm run check:manifests
 ```
 
 ## Notes
@@ -66,3 +86,8 @@ npm run build
 - Workspace scripts are defined in the root `package.json`.
 - Prisma artifacts are in `/prisma`.
 - Nginx configuration is available in `nginx/qfx-finance.conf` for deployment setups.
+
+
+## Deployment
+
+For VPS production deployment instructions, see `DEPLOYMENT.md`.
