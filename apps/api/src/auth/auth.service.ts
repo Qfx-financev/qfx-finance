@@ -109,7 +109,7 @@ export class AuthService {
     const stored = await this.redis.get(`refresh:${token}`);
     if (!stored) throw new UnauthorizedException('Invalid refresh token');
 
-    const payload = JSON.parse(stored);
+    const payload = JSON.parse(Buffer.isBuffer(stored) ? stored.toString('utf8') : stored);
     await this.redis.del(`refresh:${token}`);
     return this.generateTokens(payload.userId, payload.email, payload.role);
   }
