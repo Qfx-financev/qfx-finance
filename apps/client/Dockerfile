@@ -22,7 +22,6 @@ RUN adduser --system --uid 1001 nextjs
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 
-COPY --from=builder /app/apps/client/public ./public
 COPY --from=builder /app/apps/client/.next/standalone ./
 COPY --from=builder /app/apps/client/.next/static ./.next/static
 

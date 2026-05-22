@@ -9,7 +9,9 @@ interface User {
   lastName: string;
   role: string;
   kycStatus: string;
+  twoFactorEnabled: boolean;
   balance: number;
+  [key: string]: any;
 }
 
 interface AuthStore {

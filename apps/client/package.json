@@ -16,11 +16,8 @@
     "zustand": "^4.5.0",
     "axios": "^1.6.5",
     "framer-motion": "^11.0.3",
-    "apexcharts": "^3.46.0",
+    "apexcharts": "^4.0.0",
     "react-apexcharts": "^1.4.0",
-    "@web3modal/wagmi": "^4.1.9",
-    "wagmi": "^2.5.7",
-    "viem": "^2.7.15",
     "socket.io-client": "^4.6.2",
     "date-fns": "^3.3.1"
   },

@@ -37,7 +37,7 @@ export default function SettingsPage() {
 
   const enable2fa = useMutation({
     mutationFn: () => api.post('/auth/2fa/enable', { token: twoFaToken }),
-    onSuccess: () => { updateUser({ twoFactorEnabled: true }); setFb('2fa', 'success', '2FA enabled'); setQrCode(''); setTwoFaToken(''); },
+    onSuccess: () => { updateUser({ twoFactorEnabled: true } as any); setFb('2fa', 'success', '2FA enabled'); setQrCode(''); setTwoFaToken(''); },
     onError: () => setFb('2fa', 'error', 'Invalid code'),
   });
 
