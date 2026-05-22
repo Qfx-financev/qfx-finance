@@ -11,7 +11,8 @@
     "dev:api": "npm --workspace apps/api run start:dev",
     "build": "npm run check:manifests && npm run build --workspaces",
     "install:all": "npm install --workspaces",
-    "check:manifests": "node scripts/validate-manifests.js"
+    "check:manifests": "node scripts/validate-manifests.js",
+    "check:types-deps": "node scripts/check-types-deps.js"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",
@@ -29,5 +30,8 @@
     "class-validator": "^0.15.1",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1"
+  },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
   }
 }

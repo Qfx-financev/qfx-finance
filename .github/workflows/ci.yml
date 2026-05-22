@@ -25,3 +25,6 @@ jobs:
 
       - name: Validate workspace manifests
         run: npm run check:manifests
+
+      - name: Validate type dependencies
+        run: npm run check:types-deps
