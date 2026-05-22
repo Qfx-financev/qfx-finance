@@ -48,8 +48,6 @@ Copy each example env file and fill in values:
 - `apps/client/apps_client_env.example`
 - `.env.example` (root Prisma CLI env used by `npx prisma db seed`)
 
-For seeding specifically, copy `.env.example` to `.env` and customize the optional `SEED_ADMIN_*` values before running Prisma seed commands.
-
 ### 3) Validate workspace manifests
 
 Run a quick JSON validation check before local development or CI builds:
