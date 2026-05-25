@@ -2,7 +2,7 @@
 import DashboardShell from '@/components/layout/DashboardShell'
 import TopHeader from '@/components/layout/TopHeader'
 import StatCard from '@packages/ui/StatCard'
-import { useAuthStore } from '@/store/authStore'
+import { useAuthStore } from './apps_client_authStore'
 import { formatCurrency } from '@packages/utils/account'
 
 export default function DashboardPage(){

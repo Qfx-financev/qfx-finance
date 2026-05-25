@@ -1,6 +1,6 @@
 'use client'
 import DashboardShell from '@/components/layout/DashboardShell'
-import { useAuthStore } from '@/store/authStore'
+import { useAuthStore } from './apps_client_authStore'
 import { formatCurrency } from '@packages/utils/account'
 
 export default function AccountsPage(){

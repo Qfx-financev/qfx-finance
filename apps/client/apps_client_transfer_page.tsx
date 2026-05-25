@@ -2,7 +2,7 @@
 import { useForm } from 'react-hook-form'
 import DashboardShell from '@/components/layout/DashboardShell'
 import { api } from '@/services/api'
-import { useAuthStore } from '@/store/authStore'
+import { useAuthStore } from './apps_client_authStore'
 
 export default function TransferPage(){
   const { register, handleSubmit } = useForm()

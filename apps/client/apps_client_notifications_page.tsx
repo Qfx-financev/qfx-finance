@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react'
 import DashboardShell from '@/components/layout/DashboardShell'
 import { api } from '@/services/api'
-import { useAuthStore } from '@/store/authStore'
+import { useAuthStore } from './apps_client_authStore'
 
 export default function NotificationsPage(){
   const user = useAuthStore((s:any)=>s.user)

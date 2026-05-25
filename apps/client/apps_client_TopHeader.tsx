@@ -1,6 +1,6 @@
 'use client'
 import { Bell, UserCircle2 } from 'lucide-react'
-import { useAuthStore } from '@/store/authStore'
+import { useAuthStore } from './apps_client_authStore'
 
 export default function TopHeader(){
   const user = useAuthStore((s:any)=>s.user)
