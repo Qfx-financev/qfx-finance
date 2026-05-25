@@ -6,10 +6,12 @@ import { TransactionsController } from './transactions/transactions.controller'
 import { TransactionsService } from './transactions/transactions.service'
 import { CryptoController } from './crypto/crypto.controller'
 import { CryptoService } from './crypto/crypto.service'
+import { PrismaService } from './prisma.service'
+import { HealthController } from './health.controller'
 
 @Module({
   imports: [JwtModule.register({ secret: process.env.JWT_SECRET })],
-  controllers: [AuthController, TransactionsController, CryptoController],
-  providers: [AuthService, TransactionsService, CryptoService]
+  controllers: [AuthController, TransactionsController, CryptoController, HealthController],
+  providers: [AuthService, TransactionsService, CryptoService, PrismaService],
 })
 export class AppModule {}
