@@ -1,0 +1,24 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #0a0e1a; color: #e8eaf0; font-family: 'Inter', system-ui, sans-serif; font-size: 14px; -webkit-font-smoothing: antialiased; }
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #0f1629; }
+::-webkit-scrollbar-thumb { background: rgba(0,212,255,0.3); border-radius: 3px; }
+.card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 20px; }
+.badge { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 100px; font-size: 11px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; }
+.badge-success { background: rgba(0,208,132,0.15); color: #00d084; }
+.badge-danger { background: rgba(255,71,87,0.15); color: #ff4757; }
+.badge-warning { background: rgba(255,165,2,0.15); color: #ffa502; }
+.badge-info { background: rgba(0,212,255,0.15); color: #00d4ff; }
+.badge-pending { background: rgba(123,97,255,0.15); color: #7b61ff; }
+.btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; border: none; transition: all 0.15s; }
+.btn-primary { background: linear-gradient(135deg, #00d4ff, #0099bb); color: #0a0e1a; }
+.btn-ghost { background: transparent; border: 1px solid rgba(255,255,255,0.1); color: #a0aec0; }
+.btn-danger { background: rgba(255,71,87,0.15); color: #ff4757; border: 1px solid rgba(255,71,87,0.3); }
+table { width: 100%; border-collapse: collapse; }
+th { text-align: left; padding: 10px 14px; font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: #6b7280; border-bottom: 1px solid rgba(255,255,255,0.05); }
+td { padding: 12px 14px; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 13px; }
+tr:hover td { background: rgba(255,255,255,0.02); }
+tr:last-child td { border-bottom: none; }
+input, select { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #e8eaf0; font-family: inherit; font-size: 13px; padding: 8px 12px; outline: none; }
+input:focus, select:focus { border-color: #00d4ff; }
+input::placeholder { color: #4b5563; }

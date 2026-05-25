@@ -21,7 +21,11 @@ export default function LoginPage() {
       if (data.requires2fa) {
         setTwoFa({ show: true, userId: data.userId, token: '' });
       } else {
-        setAuth(data.user, data.accessToken, data.refreshToken);
+        // Fetch user profile after login
+        const meRes = await api.get('/users/me', {
+          headers: { Authorization: `Bearer ${data.accessToken}` }
+        });
+        setAuth(meRes.data, data.accessToken, data.refreshToken);
         router.push('/dashboard');
       }
     } catch (err: any) {
@@ -34,7 +38,10 @@ export default function LoginPage() {
     setLoading(true); setError('');
     try {
       const { data } = await api.post('/auth/2fa/verify', { userId: twoFa.userId, token: twoFa.token });
-      setAuth(data.user, data.accessToken, data.refreshToken);
+      const meRes = await api.get('/users/me', {
+        headers: { Authorization: `Bearer ${data.accessToken}` }
+      });
+      setAuth(meRes.data, data.accessToken, data.refreshToken);
       router.push('/dashboard');
     } catch {
       setError('Invalid 2FA code');

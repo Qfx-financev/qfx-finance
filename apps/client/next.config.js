@@ -7,3 +7,9 @@ const nextConfig = {
 };
 
 module.exports = nextConfig;
+
+// Force API URL
+process.env.NEXT_PUBLIC_API_URL = 'https://api.qfx-finance.com';
+
+// Force API URL
+process.env.NEXT_PUBLIC_API_URL = 'https://api.qfx-finance.com';

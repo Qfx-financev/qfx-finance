@@ -13,9 +13,11 @@
     "lint": "npm run lint --workspaces --if-present"
   },
   "devDependencies": {
-    "concurrently": "^8.2.2"
+    "concurrently": "^8.2.2",
+    "prisma": "^7.8.0"
   },
   "dependencies": {
+    "@prisma/client": "^7.8.0",
     "redis": "^5.12.1"
   }
 }

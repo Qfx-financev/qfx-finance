@@ -38,8 +38,7 @@ services:
       dockerfile: apps/api/Dockerfile
     container_name: qfx_api
     restart: unless-stopped
-    env_file:
-      - .env
+    env_file: .env
     environment:
       NODE_ENV: production
       DATABASE_URL: postgresql://qfx_user:${DB_PASSWORD}@postgres:5432/qfx_db
@@ -49,18 +48,9 @@ services:
       postgres:
         condition: service_healthy
       redis:
-        condition: service_healthy
-    networks:
-      - qfx_network
-    ports:
-      - "127.0.0.1:3001:3001"
-
-  client:
-    build:
-      context: .
-      dockerfile: apps/client/Dockerfile
-    container_name: qfx_client
-    restart: unless-stopped
+        condition: service_healthy ports: ports: - 
+  "127.0.0.1:3000:3000" cports: ports: contports: dockerfile: 
+  apps/client/Dockports: container_name: qfx_    restart: unless-stopped
     environment:
       NODE_ENV: production
       PORT: 3000
@@ -69,8 +59,8 @@ services:
       - api
     networks:
       - qfx_network
-    ports:
-      - "127.0.0.1:3000:3000"
+    expose:
+      - "3000"
 
   admin:
     build:
@@ -86,8 +76,8 @@ services:
       - api
     networks:
       - qfx_network
-    ports:
-      - "127.0.0.1:3002:3002"
+    expose:
+      - "3002"
 
 networks:
   qfx_network:

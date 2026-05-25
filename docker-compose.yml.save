@@ -38,8 +38,7 @@ services:
       dockerfile: apps/api/Dockerfile
     container_name: qfx_api
     restart: unless-stopped
-    env_file:
-      - .env
+    env_file: .env
     environment:
       NODE_ENV: production
       DATABASE_URL: postgresql://qfx_user:${DB_PASSWORD}@postgres:5432/qfx_db
@@ -52,8 +51,8 @@ services:
         condition: service_healthy
     networks:
       - qfx_network
-    ports:
-      - "127.0.0.1:3001:3001"
+  ports:
+  - "127.0.0.1:3000:3000"
 
   client:
     build:
@@ -69,8 +68,8 @@ services:
       - api
     networks:
       - qfx_network
-    ports:
-      - "127.0.0.1:3000:3000"
+   ports:
+  - "127.0.0.1:3000:3000"
 
   admin:
     build:
@@ -86,9 +85,8 @@ services:
       - api
     networks:
       - qfx_network
-    ports:
-      - "127.0.0.1:3002:3002"
-
+   ports:
+  - "127.0.0.1:3000:3000"
 networks:
   qfx_network:
     driver: bridge
